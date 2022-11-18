@@ -1,0 +1,6 @@
+.sidebar {
+    box-shadow: 0 4px 30px #0000001a !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    background: rgb(223, 229, 234) !important;
+}
