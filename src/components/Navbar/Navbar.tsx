@@ -2,15 +2,12 @@ import { FunctionComponent as FC, useState } from "react";
 import {
   MDBNavbar,
   MDBContainer,
-  MDBNavbarBrand,
   MDBNavbarToggler,
   MDBNavbarItem,
-  MDBNavbarLink,
   MDBCollapse,
   MDBBtn,
   MDBIcon,
   MDBNavbarNav,
-  MDBInputGroup,
 } from "mdb-react-ui-kit";
 import { INavbar } from "./INavbar";
 import { Link, NavLink } from "react-router-dom";
@@ -23,7 +20,7 @@ const Navbar: FC<INavbar> = ({ status, connect, account }) => {
     useState<boolean>(false);
 
   return (
-    <MDBNavbar expand="lg" className="main-nav py-3 shadow-lg" dark>
+    <MDBNavbar expand="lg" className="main-nav py-3" light>
       <MDBContainer fluid>
         <Link to="/" className="navbar-brand ms-5">
           Eloqui Chat

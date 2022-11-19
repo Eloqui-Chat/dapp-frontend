@@ -3,9 +3,12 @@ import { SizeType } from "antd/es/config-provider/SizeContext";
 import { FunctionComponent as FC, useState } from "react";
 import { IHome } from "./IHome";
 import Illustration from "../../assets/icons/Layer 1.svg";
+import { MDBIcon } from "mdb-react-ui-kit";
+import { useNavigate } from "react-router-dom";
 
-const Home: FC<IHome> = ({}) => {
+const Home: FC<IHome> = ({ connect, status }) => {
   const [size, setSize] = useState<SizeType>("small");
+  const navigate = useNavigate();
 
   const onChange = (e: RadioChangeEvent) => {
     setSize(e.target.value);
@@ -32,7 +35,23 @@ const Home: FC<IHome> = ({}) => {
                 Get intuitive and decentralised messaging for free, available on
                 web across all devices.
               </p>
-              <Button type="primary">START WITH ELOQUICHAT</Button>
+              {status === "connecting" ? (
+                <MDBIcon icon="spinner" className="my-0" spin />
+              ) : status === "notConnected" ? (
+                <>
+                  <Button type="primary" onClick={connect}>
+                    LOGIN WITH METAMASK
+                  </Button>
+                </>
+              ) : status === "unavailable" ? (
+                <p className="text-danger my-0">
+                  Please install Metamask to start
+                </p>
+              ) : (
+                <Button onClick={() => navigate("/chats")} type="primary">
+                  START CHATTING
+                </Button>
+              )}
             </Col>
             <Col xs={24} sm={24} md={12} style={{ padding: "5px" }}>
               <img
