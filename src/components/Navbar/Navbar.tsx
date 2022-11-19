@@ -18,7 +18,7 @@ import MetaMaskIcon from "../../assets/icons/meta_mask_icon.svg";
 
 import "./Navbar.css";
 
-const Navbar: FC<INavbar> = ({}) => {
+const Navbar: FC<INavbar> = ({ status, connect, account }) => {
   const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] =
     useState<boolean>(false);
 
@@ -56,22 +56,57 @@ const Navbar: FC<INavbar> = ({}) => {
                 <MDBIcon icon="envelope" fas /> Contact
               </NavLink>
             </MDBNavbarItem>
+            {account && (
+              <MDBNavbarItem>
+                <NavLink to="/chats" className="nav-link" end>
+                  <MDBIcon icon="message" fas /> Chats
+                </NavLink>
+              </MDBNavbarItem>
+            )}
 
             <MDBNavbarItem className="d-flex align-items-center ms-5">
-              <MDBBtn
-                color="warning"
-                type="button"
-                className="my-0 py-2"
-                size="sm"
-              >
-                Login With Metamask
-                <img
-                  src={MetaMaskIcon}
-                  alt="MetaMask Icon"
-                  className="metamask-icon ms-2"
-                  height={18}
-                />
-              </MDBBtn>
+              {status === "connecting" ? (
+                <MDBIcon icon="spinner" className="my-0" spin />
+              ) : status === "notConnected" ? (
+                <MDBBtn
+                  color="warning"
+                  type="button"
+                  className="my-0 py-2"
+                  size="sm"
+                  onClick={connect}
+                >
+                  Login With Metamask
+                  <img
+                    src={MetaMaskIcon}
+                    alt="MetaMask Icon"
+                    className="metamask-icon ms-2"
+                    height={18}
+                  />
+                </MDBBtn>
+              ) : status === "unavailable" ? (
+                <p className="text-danger my-0">MetaMask is not available</p>
+              ) : (
+                <>
+                  <p className="text-warning my-0">
+                    <MDBIcon icon="user" fas /> {""}
+                    {String(account).substring(0, 6) +
+                      "..." +
+                      String(account).substring(38)}
+                  </p>
+                </>
+              )}
+            </MDBNavbarItem>
+
+            <MDBNavbarItem className="d-flex align-items-center ms-2">
+              {status === "connected" ? (
+                <span className="badge rounded-pill bg-success badge-sm">
+                  Connected
+                </span>
+              ) : (
+                <span className="badge rounded-pill bg-danger badge-sm">
+                  Disconnected
+                </span>
+              )}
             </MDBNavbarItem>
           </MDBNavbarNav>
         </MDBCollapse>

@@ -1,1 +1,3 @@
-export interface ISideBar {}
+export interface ISideBar {
+  chats: String[];
+}

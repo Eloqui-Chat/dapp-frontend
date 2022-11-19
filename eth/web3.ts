@@ -1,4 +1,11 @@
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
+
 import Web3 from "web3";
+// import Web3 from "web3-ts";
 
 let web3;
 
@@ -9,7 +16,7 @@ if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
 } else {
   // We are on the server *OR* the user is not running metamask
   const provider = new Web3.providers.HttpProvider(
-    "https://frosty-capable-card.ethereum-goerli.discover.quiknode.pro/57a47e849babccd5f99103c5cbb07ce77eb22178/"
+    "https://polygon-mumbai.infura.io/v3/d2ed0963e71744c7b802db00f3988e67"
   );
   web3 = new Web3(provider);
 }
