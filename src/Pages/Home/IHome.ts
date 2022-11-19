@@ -1,1 +1,4 @@
-export interface IHome {}
+export interface IHome {
+  status: String;
+  connect: () => void;
+}
